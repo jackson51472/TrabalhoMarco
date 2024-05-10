@@ -1,3 +1,5 @@
+package pacote;
+
 public class Escolaridade {
     public String getNomeEscolaridade() {
         return nomeEscolaridade;
