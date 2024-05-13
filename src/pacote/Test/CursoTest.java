@@ -19,7 +19,7 @@ class CursoTest {
             professor = new Professor();
             escolaridade = new Escolaridade();
         }
-
+    //B
     @Test
     void deveRetornarEscolaridadeProfessor(){
 

@@ -62,64 +62,84 @@ class ProfessorTest {
 
     //E
     @Test
-    void  deveRetornarEstadoProfessor(){
-        estado.setNomeEstado("Minas Gerais");
-        cidade.setEstado(estado);
-        professor.setCidade(cidade);
-        Assertions.assertEquals("Minas Gerais", professor.retornarEstado());
-    }
-    @Test
-    void  deveRetornarProfessorEstadoNaoEncontrado(){
+    void  deveRetornarNomeCidade() {
         cidade.setNomeCidade("Paiva");
         professor.setCidade(cidade);
-        Assertions.assertEquals("Estado não encontrado", professor.retornarEstado());
+        try {
+
+            Assertions.assertEquals("Paiva", professor.getCidade().getNomeCidade());
+
+        } catch (NullPointerException e) {
+
+            Assertions.fail("Deveria ter lançado Paiva");
+
+        }
     }
     @Test
-    void  deveRetornarProfessorCidadeEstadoNaoEncontrado(){
-        Assertions.assertEquals("Cidade e Estado não encontrado", professor.retornarEstado());
-    }
-    @Test
-    void  deveRetornarProfessorCidade(){
-        cidade.setNomeCidade("Paiva");
+    void  deveRetornarNomeCidadeNaoCadastrada(){
         professor.setCidade(cidade);
-        Assertions.assertEquals("Paiva", professor.retornarCidade());
+        try {
+            professor.getCidade().getNomeCidade();
+            Assertions.fail("Deveria ter lançado NullPointerException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Nome da Cidade esta vazia",e.getMessage());
+        }
     }
     @Test
-    void  deveRetornarProfessorCidadeNaoEncontrada(){
-        Assertions.assertEquals("Cidade não encontrada", professor.retornarCidade());
+    void  deveRetornarCidadeNaoCadastrada(){
+
+        try {
+            professor.getCidade().getNomeCidade();
+            Assertions.fail("Deveria ter lançado NullPointerException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Cidade não cadastrada",e.getMessage());
+        }
+
     }
+
 
 
     // G
     @Test
-    void  deveRetornarProfessorTipoEnsino(){
+    void  deveRetornarTipoEnsino(){
         tipoEnsino.setTipo("médio");
         curso.setTipoEnsino(tipoEnsino);
         professor.setCurso(curso);
-        Assertions.assertEquals("médio", professor.retornaTipoEnsino());
+        try {
+            professor.getCurso().getTipoEnsino().getTipo();
+            Assertions.assertEquals("médio", professor.getCurso().getTipoEnsino().getTipo());
+        } catch (NullPointerException e) {
+            Assertions.fail("Deveria ter lançado Nome do Tipo Ensino");
+        }
     }
     @Test
-    void  deveRetornarProfessorCursoNaoCadastraso(){
-        Assertions.assertEquals("Curso não cadastrado", professor.retornaTipoEnsino());
+    void  deveRetornarTipoEnsinoNaoCadastrado(){
+        curso.setTipoEnsino(tipoEnsino);
+        professor.setCurso(curso);
+
+        try {
+            professor.getCurso().getTipoEnsino().getTipo();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Nome do Tipo não cadastrado", e.getMessage());
+        }
     }
     @Test
     void  deveRetornarProfessorTipoEnsinoNaoCadastrada(){
         professor.setCurso(curso);
-        Assertions.assertEquals("Curso encontro, mais sem Tipo de Ensino cadastrado", professor.retornaTipoEnsino());
+
+        try {
+            professor.getCurso().getTipoEnsino().getTipo();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Tipo Ensino não cadastrado", e.getMessage());
+        }
+
     }
-    @Test
-    void  deveRetornarProfessorNomeTipoEnsinoNaoCadastrado(){
-        curso.setTipoEnsino(tipoEnsino);
-        professor.setCurso(curso);
-        Assertions.assertEquals("Curso encontro, mais sem o nome do Tipo de Ensino", professor.retornaTipoEnsino());
-    }
 
 
 
-
-
-
-    //I
+    // G,I,J
     @Test
     void deveRetornarCursoNaoCadastrado(){
         try {
@@ -130,6 +150,7 @@ class ProfessorTest {
         }
     }
 
+    // I
     @Test
     void deveRetornarEscolaNaoCadastrado(){
         professor.setCurso(curso);
@@ -141,7 +162,6 @@ class ProfessorTest {
         }
 
     }
-
     @Test
     void deveRetornarEscolaSemDiretor(){
         curso.setEscola(escola);
@@ -154,7 +174,6 @@ class ProfessorTest {
         }
 
     }
-
     @Test
     void deveRetornarDiretorSemNome(){
         escola.setDiretor(professor);
@@ -169,7 +188,6 @@ class ProfessorTest {
         }
 
     }
-
     @Test
     void deveRetornarDiretorNome(){
         professor.setNome("Marco Antonio");

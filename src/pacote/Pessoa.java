@@ -7,6 +7,11 @@ public class Pessoa {
     private Escolaridade escolaridade;
 
     public Cidade getCidade() {
+
+        if (this.cidade == null) {
+            throw new NullPointerException("Cidade não cadastrada");
+        }
+
         return cidade;
     }
 
@@ -37,29 +42,7 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String retornarEstado(){
-        if(this.cidade == null){
-
-            return "Cidade e Estado não encontrado";
-
-        }
-        else if(this.cidade.getEstado() == null){
-
-            return "Estado não encontrado";
-
-        }
-        else {
-            return this.cidade.getEstado().getNomeEstado();
-        }
-    }
-
-    public String retornarCidade(){
-        if(this.cidade == null){
-            return "Cidade não encontrada";
-        } else {
-          return this.cidade.getNomeCidade();
-        }
 
 
-    }
+
 }

@@ -27,6 +27,11 @@ public class Escola {
     }
 
     public Cidade getCidade() {
+
+        if (this.cidade == null) {
+            throw new NullPointerException("Cidade não cadastrada");
+        }
+
         return cidade;
     }
 

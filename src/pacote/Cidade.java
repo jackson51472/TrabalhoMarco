@@ -5,6 +5,11 @@ public class Cidade {
     private Estado estado;
 
     public String getNomeCidade() {
+
+        if (this.nomeCidade == null) {
+            throw new NullPointerException("Nome da Cidade esta vazia");
+        }
+
         return nomeCidade;
     }
 
@@ -13,6 +18,11 @@ public class Cidade {
     }
 
     public Estado getEstado() {
+
+        if (this.estado == null) {
+            throw new NullPointerException("Estado não cadastrada");
+        }
+
         return estado;
     }
 

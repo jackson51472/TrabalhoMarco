@@ -2,6 +2,11 @@ package pacote;
 
 public class Estado {
     public String getNomeEstado() {
+
+        if (this.nomeEstado == null) {
+            throw new NullPointerException("Nome do Estado não cadastrado");
+        }
+
         return nomeEstado;
     }
 

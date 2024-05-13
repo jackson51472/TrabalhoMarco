@@ -40,6 +40,11 @@ public class Curso {
     }
 
     public TipoEnsino getTipoEnsino() {
+        if (this.tipoEnsino == null) {
+
+            throw new NullPointerException("Tipo Ensino não cadastrado");
+
+        }
         return this.tipoEnsino;
     }
 
