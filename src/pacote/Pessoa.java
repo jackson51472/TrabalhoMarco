@@ -14,7 +14,11 @@ public class Pessoa {
         this.cidade = cidade;
     }
 
-    public Escolaridade getEscolaridade() {
+    public Escolaridade getEscolaridade()
+    {
+        if (this.escolaridade == null) {
+            throw new NullPointerException("Escolaridade não cadastrada");
+        }
         return escolaridade;
     }
 
@@ -23,6 +27,9 @@ public class Pessoa {
     }
 
     public String getNome() {
+        if (this.nome == null) {
+            throw new NullPointerException("Nome não cadastrado");
+        }
         return nome;
     }
 

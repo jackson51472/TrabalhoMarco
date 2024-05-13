@@ -14,9 +14,9 @@ public class Aluno extends Pessoa {
         this.nome = nome;
     }
 
-    public Object getCurso() {
-        if (curso == null){
-            return "Curso não foi encontrado";
+    public Curso getCurso() {
+        if (this.curso == null) {
+            throw new NullPointerException("Curso não cadastrado");
         }
         return curso;
     }

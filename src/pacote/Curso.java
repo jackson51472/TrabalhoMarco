@@ -15,6 +15,9 @@ public class Curso {
     }
 
     public Professor getCoodernador() {
+        if (this.coodernador == null) {
+            throw new NullPointerException("Coodernado não cadastrado");
+        }
         return coodernador;
     }
 
@@ -23,8 +26,14 @@ public class Curso {
     }
 
     public Escola getEscola() {
+        if (this.escola == null) {
+            throw new NullPointerException("Escola não cadastrada");
+        }
+
         return escola;
     }
+
+
 
     public void setEscola(Escola escola) {
         this.escola = escola;

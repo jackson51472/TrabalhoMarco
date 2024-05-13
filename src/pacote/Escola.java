@@ -14,6 +14,11 @@ public class Escola {
     }
 
     public Professor getDiretor() {
+
+        if (this.diretor == null) {
+            throw new NullPointerException("Diretor não cadastrado");
+        }
+
         return diretor;
     }
 

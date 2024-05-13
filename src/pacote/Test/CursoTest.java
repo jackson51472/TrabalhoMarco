@@ -26,14 +26,50 @@ class CursoTest {
         escolaridade.setNomeEscolaridade("Mestrado");
         professor.setEscolaridade(escolaridade);
         curso.setCoodernador(professor);
-        Assertions.assertEquals("Mestrado", curso.getCoodernador().pegarEscolaridade());
+
+        try {
+            Assertions.assertEquals("Mestrado", curso.getCoodernador().getEscolaridade().getNomeEscolaridade());
+        } catch (NullPointerException e) {
+            Assertions.fail("Deveria ter lançado Mestrado");
+        }
     }
+
+    @Test
+    void deveRetornarEscolaridadeSemNome(){
+
+        professor.setEscolaridade(escolaridade);
+        curso.setCoodernador(professor);
+
+        try {
+            curso.getCoodernador().getEscolaridade().getNomeEscolaridade();
+            Assertions.fail("Deveria ter lançado NullPointerException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Escolaridade não tem nome cadastrado", e.getMessage());
+        }
+
+
+    }
+
     @Test
     void deveRetornarEscolaridadeNula(){
         curso.setCoodernador(professor);
-        Assertions.assertEquals("Escolaridade nula", curso.getCoodernador().pegarEscolaridade());
+        try {
+            curso.getCoodernador().getEscolaridade();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Escolaridade não cadastrada", e.getMessage());
+        }
+    }
+
+    @Test
+    void deveRetornarCursoSemCoodernador(){
+        try {
+            curso.getCoodernador();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Coodernado não cadastrado", e.getMessage());
+        }
     }
 
 
-
-    }
+}

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import pacote.*;
 
 class AlunoTest {
+    Professor professor;
     Estado estado;
     Cidade cidade;
     Aluno aluno;
@@ -13,6 +14,7 @@ class AlunoTest {
 
     @BeforeEach
     void setUp() {
+        professor = new Professor();
         curso = new Curso();
         cidade = new Cidade();
         estado = new Estado();
@@ -46,19 +48,61 @@ class AlunoTest {
     void  deveRetornarAlunoCidadeNaoEncontrada(){
         Assertions.assertEquals("Cidade não encontrada", aluno.retornarCidade());
     }
-    @Test
-    void  deveRetornarAlunoCursoNaoEncontrado(){
-        Assertions.assertEquals("Curso não foi encontrado", aluno.getCurso());
-    }
+
+
+
+
     // H
     @Test
-    void deveRetornarAlunoCursoNaoEncontrada(){
-        Assertions.assertEquals("Curso não foi encontrado", aluno.retornaCoordenadorCurso());
+    void deveRetornaNomeCoodernadorCurso(){
+
+        professor.setNome("Marco Antonio");
+        curso.setCoodernador(professor);
+        aluno.setCurso(curso);
+
+        try {
+            Assertions.assertEquals("Marco Antonio", aluno.getCurso().getCoodernador().getNome());
+        } catch (NullPointerException e) {
+            Assertions.fail("Deveria ter lançado Marco Antonio");
+        }
+    }
+
+    @Test
+    void deveRetornarCoodernadorSemNome(){
+
+        curso.setCoodernador(professor);
+        aluno.setCurso(curso);
+
+        try {
+            aluno.getCurso().getCoodernador().getNome();
+            Assertions.fail("Deveria ter lançado NullPointerException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Nome não cadastrado", e.getMessage());
+        }
+    }
+
+
+    @Test
+    void deveRetornarCoordenadorNaoEncontrado(){
+        aluno.setCurso(curso);
+
+        try {
+
+            aluno.getCurso().getCoodernador();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Coodernado não cadastrado", e.getMessage());
+        }
     }
     @Test
-    void deveRetornarAlunoCoordenadorCursoNaoEncontrado(){
-        aluno.setCurso(curso);
-        Assertions.assertEquals("Curso sem coordenador", aluno.retornaCoordenadorCurso());
+    void deveRetornarCursoNaoEncontrada(){
+
+        try {
+            aluno.getCurso();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Curso não cadastrado", e.getMessage());
+        }
     }
 
 }

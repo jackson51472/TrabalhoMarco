@@ -33,9 +33,32 @@ class ProfessorTest {
         Assertions.assertEquals("Mestrado", professor.pegarEscolaridade());
     }
     @Test
-    void deveRetornarEscolaridadeNula(){
-        Assertions.assertEquals("Escolaridade nula", professor.pegarEscolaridade());
+    void deveRetornarEscolaridadeSemNome(){
+
+        professor.setEscolaridade(escolaridade);
+
+
+        try {
+            professor.getEscolaridade().getNomeEscolaridade();
+            Assertions.fail("Deveria ter lançado NullPointerException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Escolaridade não tem nome cadastrado", e.getMessage());
+        }
+
+
     }
+    @Test
+    void deveRetornarEscolaridadeNula(){
+
+        try {
+            professor.getEscolaridade();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Escolaridade não cadastrada", e.getMessage());
+        }
+
+    }
+
 
     //E
     @Test
@@ -65,6 +88,8 @@ class ProfessorTest {
     void  deveRetornarProfessorCidadeNaoEncontrada(){
         Assertions.assertEquals("Cidade não encontrada", professor.retornarCidade());
     }
+
+
     // G
     @Test
     void  deveRetornarProfessorTipoEnsino(){
@@ -88,60 +113,121 @@ class ProfessorTest {
         professor.setCurso(curso);
         Assertions.assertEquals("Curso encontro, mais sem o nome do Tipo de Ensino", professor.retornaTipoEnsino());
     }
+
+
+
+
+
+
     //I
     @Test
-    void deveRetornarDiretorCursoNaoCadastrado(){
-        Assertions.assertEquals("Curso não cadastrado", professor.retornaDiretor());
+    void deveRetornarCursoNaoCadastrado(){
+        try {
+            professor.getCurso();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Curso não cadastrado", e.getMessage());
+        }
     }
+
     @Test
-    void deveRetornarDiretorEscolaNaoCadastrado(){
+    void deveRetornarEscolaNaoCadastrado(){
         professor.setCurso(curso);
-        Assertions.assertEquals("Sem escola cadastrada", professor.retornaDiretor());
-    }
-    @Test
-    void deveRetornarDiretorEscolaSemDiretor(){
-        curso.setEscola(escola);
-        professor.setCurso(curso);
-        Assertions.assertEquals("Escola do sem Diretor cadastrado", professor.retornaDiretor());
+        try {
+            professor.getCurso().getEscola();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Escola não cadastrada", e.getMessage());
+        }
 
     }
+
+    @Test
+    void deveRetornarEscolaSemDiretor(){
+        curso.setEscola(escola);
+        professor.setCurso(curso);
+        try {
+            professor.getCurso().getEscola().getDiretor();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Diretor não cadastrado", e.getMessage());
+        }
+
+    }
+
     @Test
     void deveRetornarDiretorSemNome(){
         escola.setDiretor(professor);
         curso.setEscola(escola);
         professor.setCurso(curso);
-        Assertions.assertEquals("Diretor sem Nome cadastrado", professor.retornaDiretor());
+        try {
+
+            professor.getCurso().getEscola().getDiretor().getNome();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Nome não cadastrado", e.getMessage());
+        }
+
     }
+
     @Test
     void deveRetornarDiretorNome(){
         professor.setNome("Marco Antonio");
-        escola.setDiretor(professor);
         curso.setEscola(escola);
         professor.setCurso(curso);
-        Assertions.assertEquals("Marco Antonio", professor.retornaDiretor());
+        escola.setDiretor(professor);
+
+        try {
+            Assertions.assertEquals("Marco Antonio", professor.getCurso().getEscola().getDiretor().getNome());
+
+        } catch (IllegalArgumentException e) {
+            Assertions.fail("Deveria ter lançado Marco Antonio");
+        }
     }
+
+
 
     //J
     @Test
-    void deveRetornarCoodernadonaoCadastrado(){
-        Assertions.assertEquals("Curso não cadastrado", professor.retornaCoodernadoCurso());
-    }
-    @Test
     void deveRetornarCoodernadoNaoCadastrado(){
         professor.setCurso(curso);
-        Assertions.assertEquals("Coodernado não cadastrado", professor.retornaCoodernadoCurso());
+
+        try {
+
+            professor.getCurso().getCoodernador();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Coodernado não cadastrado", e.getMessage());
+        }
+
     }
     @Test
-    void deveRetornarCoordenadorSemNome(){
-        curso.setCoodernador(professor);
+    void deveRetornarCoordenadorSemNome() {
         professor.setCurso(curso);
-        Assertions.assertEquals("Nome do Coodernado não foi cadastrado", professor.retornaCoodernadoCurso());
+        curso.setCoodernador(professor);
+        try {
+
+            professor.getCurso().getCoodernador().getNome();
+            Assertions.fail("Deveria ter lançado IllegalArgumentException");
+        } catch (NullPointerException e) {
+            Assertions.assertEquals("Nome não cadastrado", e.getMessage());
+        }
     }
     @Test
     void deveRetornarCoordenadorNome(){
         professor.setNome("Marco Antonio");
         curso.setCoodernador(professor);
         professor.setCurso(curso);
-        Assertions.assertEquals("Marco Antonio", professor.retornaCoodernadoCurso());
+
+
+        try {
+
+            Assertions.assertEquals("Marco Antonio", professor.getCurso().getCoodernador().getNome());
+
+        } catch (NullPointerException e) {
+
+            Assertions.fail("Deveria ter lançado Marco Antonio");
+
+        }
     }
 }
