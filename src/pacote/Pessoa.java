@@ -7,11 +7,6 @@ public class Pessoa {
     private Escolaridade escolaridade;
 
     public Cidade getCidade() {
-
-        if (this.cidade == null) {
-            throw new NullPointerException("Cidade não cadastrada");
-        }
-
         return cidade;
     }
 
@@ -33,13 +28,36 @@ public class Pessoa {
 
     public String getNome() {
         if (this.nome == null) {
-            throw new NullPointerException("Nome não cadastrado");
+            return "Nome não cadastrado";
         }
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getNomeEscolaridade(){
+        if (this.escolaridade == null) {
+            throw new NullPointerException("Escolaridade não cadastrada");
+        }
+        if (this.escolaridade.getNome() == null) {
+            throw new NullPointerException("Escolaridade não tem nome cadastrado");
+        }
+        return this.escolaridade.getNome();
+    }
+    public String getNomeEstado(){
+
+        if (this.cidade == null) {
+            throw new NullPointerException("Cidade não cadastrada");
+        }
+        return cidade.getNomeEstado();
+    }
+    public String getCidadeEscola(){
+        if (this.cidade == null) {
+            throw new NullPointerException("Cidade não cadastrada");
+        }
+        return cidade.getNome();
     }
 
 

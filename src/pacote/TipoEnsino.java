@@ -5,11 +5,11 @@ public class TipoEnsino {
 
     public String getTipo() {
         if (this.tipo == null) {
-
-            throw new NullPointerException("Nome do Tipo não cadastrado");
-
+            return "Nome do Tipo não cadastrado";
         }
+
         return tipo;
+
     }
 
     public void setTipo(String tipo) {

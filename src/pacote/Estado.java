@@ -1,18 +1,18 @@
 package pacote;
 
 public class Estado {
-    public String getNomeEstado() {
+    private String nome;
 
-        if (this.nomeEstado == null) {
+    public String getNome() {
+
+        if (this.nome == null) {
             throw new NullPointerException("Nome do Estado não cadastrado");
         }
 
-        return nomeEstado;
+        return nome;
     }
 
-    public void setNomeEstado(String nomeEstado) {
-        this.nomeEstado = nomeEstado;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
-
-    private String nomeEstado;
 }

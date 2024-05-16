@@ -15,10 +15,6 @@ public class Escola {
 
     public Professor getDiretor() {
 
-        if (this.diretor == null) {
-            throw new NullPointerException("Diretor não cadastrado");
-        }
-
         return diretor;
     }
 
@@ -28,14 +24,33 @@ public class Escola {
 
     public Cidade getCidade() {
 
-        if (this.cidade == null) {
-            throw new NullPointerException("Cidade não cadastrada");
-        }
-
         return cidade;
     }
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
+
+    public String getNomeEscolaridadeDiretor(){
+        if(diretor == null){
+            throw new NullPointerException("Diretor não cadastrado");
+
+        }
+        return diretor.getNomeEscolaridade();
+    }
+
+    public String getNomeCidade(){
+        if(cidade == null){
+            return "Escola sem cidade";
+        }
+        return cidade.getNome();
+    }
+
+    public String getNomeDiretor(){
+        if (this.diretor == null) {
+            throw  new NullPointerException("Escola sem diretor");
+        }
+        return diretor.getNome();
+    }
+
 }

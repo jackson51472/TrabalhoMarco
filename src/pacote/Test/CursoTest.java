@@ -19,21 +19,20 @@ class CursoTest {
             professor = new Professor();
             escolaridade = new Escolaridade();
         }
-    //B
+        //B
     @Test
     void deveRetornarEscolaridadeProfessor(){
 
-        escolaridade.setNomeEscolaridade("Mestrado");
+        escolaridade.setNome("Mestrado");
         professor.setEscolaridade(escolaridade);
         curso.setCoodernador(professor);
 
         try {
-            Assertions.assertEquals("Mestrado", curso.getCoodernador().getEscolaridade().getNomeEscolaridade());
+            Assertions.assertEquals("Mestrado", curso.getNomeEscolaridadeCoodernador());
         } catch (NullPointerException e) {
             Assertions.fail("Deveria ter lançado Mestrado");
         }
     }
-
     @Test
     void deveRetornarEscolaridadeSemNome(){
 
@@ -41,7 +40,7 @@ class CursoTest {
         curso.setCoodernador(professor);
 
         try {
-            curso.getCoodernador().getEscolaridade().getNomeEscolaridade();
+            curso.getNomeEscolaridadeCoodernador();
             Assertions.fail("Deveria ter lançado NullPointerException");
         } catch (NullPointerException e) {
             Assertions.assertEquals("Escolaridade não tem nome cadastrado", e.getMessage());
@@ -49,27 +48,23 @@ class CursoTest {
 
 
     }
-
     @Test
     void deveRetornarEscolaridadeNula(){
         curso.setCoodernador(professor);
         try {
-            curso.getCoodernador().getEscolaridade();
+            curso.getNomeEscolaridadeCoodernador();
             Assertions.fail("Deveria ter lançado IllegalArgumentException");
         } catch (NullPointerException e) {
             Assertions.assertEquals("Escolaridade não cadastrada", e.getMessage());
         }
     }
-
     @Test
     void deveRetornarCursoSemCoodernador(){
         try {
-            curso.getCoodernador();
+            curso.getNomeEscolaridadeCoodernador();
             Assertions.fail("Deveria ter lançado IllegalArgumentException");
         } catch (NullPointerException e) {
             Assertions.assertEquals("Coodernado não cadastrado", e.getMessage());
         }
     }
-
-
 }

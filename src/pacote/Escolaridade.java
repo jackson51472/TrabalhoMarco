@@ -1,18 +1,13 @@
 package pacote;
 
 public class Escolaridade {
-    public String getNomeEscolaridade() {
+    private String nome;
 
-        if (this.nomeEscolaridade == null) {
-            throw new NullPointerException("Escolaridade não tem nome cadastrado");
-        }
-
-        return nomeEscolaridade;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeEscolaridade(String nomeEscolaridade) {
-        this.nomeEscolaridade = nomeEscolaridade;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
-
-    private String nomeEscolaridade;
 }

@@ -15,9 +15,6 @@ public class Curso {
     }
 
     public Professor getCoodernador() {
-        if (this.coodernador == null) {
-            throw new NullPointerException("Coodernado não cadastrado");
-        }
         return coodernador;
     }
 
@@ -26,29 +23,53 @@ public class Curso {
     }
 
     public Escola getEscola() {
-        if (this.escola == null) {
-            throw new NullPointerException("Escola não cadastrada");
-        }
-
         return escola;
     }
-
-
 
     public void setEscola(Escola escola) {
         this.escola = escola;
     }
 
     public TipoEnsino getTipoEnsino() {
-        if (this.tipoEnsino == null) {
-
-            throw new NullPointerException("Tipo Ensino não cadastrado");
-
-        }
         return this.tipoEnsino;
     }
 
     public void setTipoEnsino(TipoEnsino tipoEnsino) {
         this.tipoEnsino = tipoEnsino;
+    }
+
+    public String getNomeEscolaridadeCoodernador(){
+        if(this.coodernador == null){
+            throw new NullPointerException("Coodernado não cadastrado");
+        }
+        return this.coodernador.getNomeEscolaridade();
+    }
+
+    public String getNomeCoodernador(){
+        if(this.coodernador == null){
+            throw new NullPointerException("Curso sem coodernador");
+        }
+        return this.coodernador.getNome();
+    }
+
+    public String getNomeCidade(){
+        if(this.escola == null){
+            return "Sem escola cadastrada";
+        }
+        return this.escola.getNomeCidade();
+    }
+
+    public String getNomeTipoEnsino(){
+        if(this.tipoEnsino == null){
+            return "Tipo ensino não cadastrado";
+        }
+        return tipoEnsino.getTipo();
+    }
+
+    public String getNomeDiretor(){
+        if(this.escola == null){
+            throw  new NullPointerException("Curso sem escola cadastrada");
+        }
+        return escola.getNomeDiretor();
     }
 }

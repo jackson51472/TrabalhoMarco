@@ -25,16 +25,18 @@ public class Aluno extends Pessoa {
         this.curso = curso;
     }
 
-    public  String retornaCoordenadorCurso(){
+    public String getCidadeEscola(){
         if (this.curso == null){
-            return "Curso não foi encontrado";
+            return "Aluno sem curso";
         }
-        if (this.curso.getCoodernador() == null) {
-            return "Curso sem coordenador";
-
-        }
-        return curso.getCoodernador().getNome();
-
-
+        return this.curso.getNomeCidade();
     }
+
+    public String getNomeCoordenado(){
+        if (this.curso == null){
+            throw new NullPointerException("Aluno sem curso");
+        }
+        return curso.getNomeCoodernador();
+    }
+
 }

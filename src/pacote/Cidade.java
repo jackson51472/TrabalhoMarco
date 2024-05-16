@@ -1,32 +1,33 @@
 package pacote;
 
 public class Cidade {
-    private String nomeCidade;
+    private String nome;
     private Estado estado;
 
-    public String getNomeCidade() {
-
-        if (this.nomeCidade == null) {
-            throw new NullPointerException("Nome da Cidade esta vazia");
+    public String getNome() {
+        if (this.nome == null) {
+            return "Cidade sem nome";
         }
-
-        return nomeCidade;
+        return nome;
     }
 
-    public void setNomeCidade(String nomeCidade) {
-        this.nomeCidade = nomeCidade;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Estado getEstado() {
-
-        if (this.estado == null) {
-            throw new NullPointerException("Estado não cadastrada");
-        }
-
         return estado;
     }
 
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+    public String getNomeEstado() {
+        if (estado == null) {
+            throw new NullPointerException("Estado nulo");
+        }
+        return estado.getNome();
+    }
+
 }

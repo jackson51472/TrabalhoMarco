@@ -22,15 +22,16 @@ class AlunoTest {
         estado = new Estado();
         aluno = new Aluno();
     }
+
     //D
     @Test
     void  deveRetornarEstadoAluno(){
-        estado.setNomeEstado("Minas Gerais");
+        estado.setNome("Minas Gerais");
         cidade.setEstado(estado);
         aluno.setCidade(cidade);
 
         try {
-            Assertions.assertEquals("Minas Gerais", aluno.getCidade().getEstado().getNomeEstado());
+            Assertions.assertEquals("Minas Gerais", aluno.getNomeEstado());
         } catch (NullPointerException e) {
             Assertions.fail("Deveria ter lançado Minas Gerais");
         }
@@ -41,7 +42,7 @@ class AlunoTest {
         cidade.setEstado(estado);
         aluno.setCidade(cidade);
         try {
-            aluno.getCidade().getEstado().getNomeEstado();
+            aluno.getNomeEstado();
             Assertions.fail("Deveria ter lançado Minas Gerais");
         } catch (NullPointerException e) {
             Assertions.assertEquals("Nome do Estado não cadastrado", e.getMessage());
@@ -51,10 +52,10 @@ class AlunoTest {
     void  deveRetornarEstadoNaoCadastrado(){
         aluno.setCidade(cidade);
         try {
-            aluno.getCidade().getEstado().getNomeEstado();
+            aluno.getNomeEstado();
             Assertions.fail("Deveria ter lançado NullPointerException");
         } catch (NullPointerException e) {
-            Assertions.assertEquals("Estado não cadastrada",e.getMessage());
+            Assertions.assertEquals("Estado nulo",e.getMessage());
         }
 
     }
@@ -62,7 +63,7 @@ class AlunoTest {
     void  deveRetornarCidadeNaoCadastrada(){
 
         try {
-            aluno.getCidade().getEstado().getNomeEstado();
+            aluno.getNomeEstado();
             Assertions.fail("Deveria ter lançado NullPointerException");
         } catch (NullPointerException e) {
             Assertions.assertEquals("Cidade não cadastrada",e.getMessage());
@@ -72,53 +73,32 @@ class AlunoTest {
 
     //F
     @Test
-    void deveRetornarEscolaNaoCadastrada(){
+    void deveRetornarSemEscola(){
         aluno.setCurso(curso);
-        try {
-            aluno.getCurso().getEscola();
-            Assertions.fail("Deveria ter lançado IllegalArgumentException");
-        } catch (NullPointerException e) {
-            Assertions.assertEquals("Escola não cadastrada", e.getMessage());
-        }
-
+        Assertions.assertEquals("Sem escola cadastrada", aluno.getCidadeEscola());
     }
     @Test
-    void deveRetornarEscolaSemCidadeCadastrada(){
+    void deveRetornarEscolaSemCidade(){
         curso.setEscola(escola);
         aluno.setCurso(curso);
-        try {
-            aluno.getCurso().getEscola().getCidade();
-            Assertions.fail("Deveria ter lançado IllegalArgumentException");
-        } catch (NullPointerException e) {
-            Assertions.assertEquals("Cidade não cadastrada", e.getMessage());
-        }
+        Assertions.assertEquals("Escola sem cidade", aluno.getCidadeEscola());
 
     }
     @Test
-    void deveRetornarCidadeSemNomeCadastrado(){
+    void deveRetornarCidadeSemNome(){
         escola.setCidade(cidade);
         curso.setEscola(escola);
         aluno.setCurso(curso);
-        try {
-            aluno.getCurso().getEscola().getCidade().getNomeCidade();
-            Assertions.fail("Deveria ter lançado IllegalArgumentException");
-        } catch (NullPointerException e) {
-            Assertions.assertEquals("Nome da Cidade esta vazia", e.getMessage());
-        }
+        Assertions.assertEquals("Cidade sem nome", aluno.getCidadeEscola());
 
     }
     @Test
     void deveRetornarNomeCidade() {
-        cidade.setNomeCidade("Paiva");
+        cidade.setNome("Paiva");
         escola.setCidade(cidade);
         curso.setEscola(escola);
         aluno.setCurso(curso);
-        try {
-
-            Assertions.assertEquals("Paiva", aluno.getCurso().getEscola().getCidade().getNomeCidade());
-        } catch (NullPointerException e) {
-            Assertions.fail("Deveria ter lançado Paiva");
-        }
+        Assertions.assertEquals("Paiva", aluno.getCidadeEscola());
     }
 
     // H
@@ -130,44 +110,37 @@ class AlunoTest {
         aluno.setCurso(curso);
 
         try {
-            Assertions.assertEquals("Marco Antonio", aluno.getCurso().getCoodernador().getNome());
+            Assertions.assertEquals("Marco Antonio", aluno.getNomeCoordenado());
         } catch (NullPointerException e) {
             Assertions.fail("Deveria ter lançado Marco Antonio");
         }
     }
     @Test
     void deveRetornarCoodernadorSemNome(){
-
         curso.setCoodernador(professor);
         aluno.setCurso(curso);
 
-        try {
-            aluno.getCurso().getCoodernador().getNome();
-            Assertions.fail("Deveria ter lançado NullPointerException");
-        } catch (NullPointerException e) {
-            Assertions.assertEquals("Nome não cadastrado", e.getMessage());
-        }
+        Assertions.assertEquals("Nome não cadastrado", aluno.getNomeCoordenado());
     }
     @Test
     void deveRetornarCoordenadorNaoEncontrado(){
         aluno.setCurso(curso);
 
         try {
-
-            aluno.getCurso().getCoodernador();
+            aluno.getNomeCoordenado();
             Assertions.fail("Deveria ter lançado IllegalArgumentException");
         } catch (NullPointerException e) {
-            Assertions.assertEquals("Coodernado não cadastrado", e.getMessage());
+            Assertions.assertEquals("Curso sem coodernador", e.getMessage());
         }
     }
     @Test
     void deveRetornarCursoNaoEncontrada(){
 
         try {
-            aluno.getCurso();
+            aluno.getNomeCoordenado();
             Assertions.fail("Deveria ter lançado IllegalArgumentException");
         } catch (NullPointerException e) {
-            Assertions.assertEquals("Curso não cadastrado", e.getMessage());
+            Assertions.assertEquals("Aluno sem curso", e.getMessage());
         }
     }
 
